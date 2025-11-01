@@ -93,13 +93,12 @@ main {
   font-size: 0.9rem;
 }
 
-/* === Campo de busca lateral === */
+
 .form--side {
   position: fixed;
-  top: 30px;         /* distância do topo */
-  right: 30px;       /* distância da lateral direita */
-  width: 250px;      /* largura do campo */
-  z-index: 10;       /* garante que fique por cima da pokédex */
+  top: 30px;        
+  width: 250px;   
+  z-index: 10;       
 }
 
 .form--side .input__search {
@@ -130,4 +129,19 @@ main {
 
 .pokemon__details p {
   margin: 4px 0;
+}
+
+.pokemon__type-icon {
+  position: fixed;      
+  top: 100px;             
+  left: 715px;            
+  width: 100px;           
+  height: 60px;
+  z-index: 10;           
+}
+
+.pokemon__type-icon .type-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   
 }

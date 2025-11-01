@@ -1,11 +1,15 @@
 const pokemonName = document.querySelector('.pokemon__name');
 const pokemonNumber = document.querySelector('.pokemon__number');
 const pokemonImage = document.querySelector('.pokemon__image');
+const typeIcon = document.querySelector('.type-icon');
+
 
 const pokemonType = document.querySelector('.pokemon__type');
 const pokemonHeight = document.querySelector('.pokemon__height');
 const pokemonWeight = document.querySelector('.pokemon__weight');
 const pokemonWeaknesses = document.querySelector('.pokemon__weaknesses');
+
+
 
 const form = document.querySelector('.form');
 const input = document.querySelector('.input__search');
@@ -14,7 +18,6 @@ const buttonNext = document.querySelector('.btn-next');
 
 let searchPokemon = 1;
 
-// Função principal que busca o Pokémon
 const fetchPokemon = async (pokemon) => {
   const APIResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
 
@@ -24,18 +27,15 @@ const fetchPokemon = async (pokemon) => {
   }
 };
 
-// Função auxiliar para pegar fraquezas
 const fetchWeaknesses = async (typeUrl) => {
   const response = await fetch(typeUrl);
   const data = await response.json();
-  // retorna os tipos que causam dano dobrado
   const weaknesses = data.damage_relations.double_damage_from.map(
     (w) => w.name
   );
   return weaknesses;
 };
 
-// Renderiza o Pokémon na tela
 const renderPokemon = async (pokemon) => {
   pokemonName.innerHTML = 'Loading...';
   pokemonNumber.innerHTML = '';
@@ -51,12 +51,10 @@ const renderPokemon = async (pokemon) => {
       data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'] ||
       data['sprites']['front_default'];
 
-    // Dados básicos
     pokemonType.innerHTML = data.types.map((t) => t.type.name).join(', ');
     pokemonHeight.innerHTML = `${data.height / 10} m`;
     pokemonWeight.innerHTML = `${data.weight / 10} kg`;
 
-    // Busca fraquezas (baseado no primeiro tipo)
     const firstTypeUrl = data.types[0].type.url;
     const weaknesses = await fetchWeaknesses(firstTypeUrl);
     pokemonWeaknesses.innerHTML = weaknesses.join(', ') || 'None';
@@ -72,9 +70,14 @@ const renderPokemon = async (pokemon) => {
     pokemonWeight.innerHTML = '-';
     pokemonWeaknesses.innerHTML = '-';
   }
+
+  const typeName = data.types[0].type.name;
+
+  typeIcon.src = `./types/${typeName}.png`;
+  typeIcon.alt = typeName;
+
 };
 
-// Eventos
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   renderPokemon(input.value.toLowerCase());
@@ -92,5 +95,4 @@ buttonNext.addEventListener('click', () => {
   renderPokemon(searchPokemon);
 });
 
-// Inicia com o primeiro Pokémon
 renderPokemon(searchPokemon);
