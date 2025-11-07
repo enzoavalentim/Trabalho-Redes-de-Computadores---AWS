@@ -133,9 +133,9 @@ main {
 
 .pokemon__type-icon {
   position: fixed;      
-  top: 100px;             
-  left: 715px;            
-  width: 100px;           
+  top: 100px;        /* mais perto do topo */      
+  left: 715px;           /* centraliza horizontalmente */  
+  width: 100px;           /* centralização exata */ 
   height: 60px;
   z-index: 10;           
 }
