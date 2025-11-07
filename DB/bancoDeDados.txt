@@ -1,0 +1,12 @@
+aws rds create-db-instance \
+  --db-instance-identifier pokedexdb \
+  --db-instance-class db.t3.micro \
+  --engine mysql \
+  --allocated-storage 20 \
+  --master-username admin \
+  --master-user-password pokedex123 \
+  --backup-retention-period 0 \
+  --publicly-accessible \
+  --storage-type gp2 \
+  --db-name pokedex \
+  --region us-east-1
